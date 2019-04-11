@@ -1,0 +1,188 @@
+<html lang="en">
+
+<head>
+	<script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Styles -->
+	<style>
+		#user_info label {
+			display: inline-block;
+			width: 100px;
+			text-align: right;
+		}
+
+		#user_submit {
+			padding-left: 100px;
+		}
+
+		#user_info div {
+			margin-top: 1em;
+		}
+
+		.error {
+			display: none;
+			margin-left: 10px;
+		}
+
+		.error_show {
+			color: red;
+			margin-left: 10px;
+		}
+
+		input.invalid {
+			border: 2px solid red;
+		}
+
+		input.valid {
+			border: 2px solid green;
+		}
+
+		.message {
+			display: inline-block;
+			margin-left: 100px;
+			width: 100px;
+		}
+	</style>
+
+	<script>
+
+		$(document).ready(function () 
+		{
+			//Add Code to check for button Click
+
+			$("button").click(function () {
+				success = true;
+				validateUserName();
+				validatePassword();
+				validatePhoneNumber();
+				printSuccessMessage();
+			})
+
+			function validateUserName() 
+			{
+				var uName = $("#user_name").val();
+				if (uName.length == 0)
+				{
+					$("#unid").text("Username is mandatory.");
+					$("#user_name").removeClass("valid");
+					$("#user_name").addClass("invalid");
+					success = false;
+				}
+				else if (uName.length < 6) 
+				{
+					$("#unid").text("Username must be atleast 6 characters.");
+					$("#user_name").removeClass("valid");
+					$("#user_name").addClass("invalid");
+					success = false;
+				}
+				else 
+				{
+					$("#unid").text("");
+					$("#user_name").removeClass("invalid");
+					$("#user_name").addClass("valid");
+				}
+				event.preventDefault();
+			}
+			//Add Code to validate if password field is blank
+
+			//Add Code to validate length of password field
+			function validatePassword() {
+				var pwd = $("#user_password").val();
+				 
+				if (pwd.length == 0)
+				{
+					$("#pwdid").text("Password is mandatory");
+					$("#user_password").removeClass("valid");
+					$("#user_password").addClass("invalid");
+					success = false;
+				}
+				else if (pwd.length < 6) 
+				{
+					$("#pwdid").text("Password must be atleast 6 characters.");
+					$("#user_password").removeClass("valid");
+					$("#user_password").addClass("invalid");
+					success = false;
+				}
+				else {
+					$("#pwdid").text("");
+					$("#user_password").removeClass("invalid");
+					$("#user_password").addClass("valid");
+				}
+				event.preventDefault();
+			}
+
+
+			//Add Code to see if the phone number field is not blank
+
+			//Add Code to see if the phone number only contains numbers
+			function validatePhoneNumber() 
+			{
+				var num = $("#user_phone").val();
+				var digits = /^[0-9]+$/;
+				var is_phone = digits.test(num);
+				if(num.length == 0)
+				{
+					$("#phnid").text("Phone number is mandatory");
+					$("#user_phone").removeClass("valid");
+					$("#user_phone").addClass("invalid");
+					success = false;
+				}
+				else if (!is_phone) 
+				{
+					$("#phnid").text("Phone number must have only numbers");
+					$("#user_phone").removeClass("valid");
+					$("#user_phone").addClass("invalid");
+					success = false;
+				}
+				else 
+				{
+					$("#phnid").text("");
+					$("#user_phone").removeClass("invalid");
+					$("#user_phone").addClass("valid");
+				}
+				event.preventDefault();
+			}
+
+			//Add code to update css on sucess. 
+			function printSuccessMessage() 
+			{
+				if (success) 
+				{
+					$("#successid").text("Login Successful");
+					$("#successid").css("color", "green");
+				}
+				else {
+					$("#successid").text("");
+				}
+				event.preventDefault();
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<form id="user_info" method="post" action="">
+		<div>
+			<label for="user_name">Username:</label>
+			<input type="text" id="user_name" name="user_name">
+		</div>
+		<div>
+			<label for="user_password">Password:</label>
+			<input type="Password" id="user_password" name="user_password">
+		</div>
+		<div>
+			<label for="user_phone">Phone:</label>
+			<input type="text" id="user_phone" name="user_phone">
+		</div>
+		<div id="user_submit">
+			<button type="submit">Validate</button>
+		</div>
+		<div id="Message">
+			<p class="error_show " id="unid"></p>
+			<p class="error_show" id="pwdid"></p>
+			<p class="error_show" id="phnid"></p>
+			<p id="successid"></p>
+		</div>
+	</form>
+</body>
+
+</html>
